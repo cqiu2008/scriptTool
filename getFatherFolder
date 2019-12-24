@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+##Step 1 get the Father Folder Name 
+dirPath=$(pwd)
+dirName=$(echo ${dirPath} | sed 's/.*\///g')
+echo ${dirName}

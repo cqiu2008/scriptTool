@@ -1,0 +1,1 @@
+sshpass -p robot scp -r /home/exbot/sdk_workspace/kcfInterface/Debug/kcfInterface.elf xilinx@192.168.0.169:/home/xilinx/kcfRun

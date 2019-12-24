@@ -1,0 +1,101 @@
+#!/usr/bin/perl -w
+use 5.010;
+use File::Basename;
+use utf8;
+binmode(STDOUT,":encoding(gbk)");
+print "Beginning to process ... \n";
+print "CMD Format---split_file in.v---- \n";
+my $filename;
+my $ofilenext;
+my $ofilecurrent;
+my $pathnext;
+my $pathcurrent;
+
+#-----delete the first input character when it including the "/" or "." and so on.
+$_=$ARGV[0];
+##s/\/\s*$//g; ## delete the "/" when the character including the "/"
+s/\W+\s*$//g; ## delete the "/" when the character including the "/" or "." and so on
+$filename = $_;
+print "$filename \n"; 
+my $basename = basename($filename,".v");
+
+#----------------------------------------------------------
+die "file $filename is not exist! \n" unless -e $filename;
+open(VFILE,"<",$filename) || die "open file failed!\n";
+#----------------------------------------------------------
+my $end_flag = 0;
+my $begin_flag = 1;
+while(<VFILE>){
+	chomp;#
+#push @content,$_;
+    if(/qcTag1234/i){#\u5339\u914d\u5230always		
+        my @fields = split / /,$_;
+        my @whole_paths = split /\//,$fields[0];
+        $_ = $fields[0];
+        s/$whole_paths[$#whole_paths]//g;
+        if($begin_flag > 0){
+            $begin_flag = 0;
+            $end_flag = 0;
+            $ofilenext = $fields[0]; 
+            $pathnext = $_;
+            $ofilecurrent = $ofilenext;
+            $pathcurrent = $pathnext; 
+            system("mkdir -p $pathcurrent");
+            system("touch $ofilecurrent");
+            open(OFILE,">",$ofilecurrent) || die "open file failed!\n";
+        }else{
+            $ofilecurrent = $ofilenext;
+            $pathcurrent = $pathnext; 
+            system("mkdir -p $pathcurrent");
+            system("touch $ofilecurrent");
+            open(OFILE,">",$ofilecurrent) || die "open file failed!\n";
+            $end_flag = 1;
+            $ofilenext = $fields[0]; 
+            $pathnext = $_;
+        }
+#print "ofilecurrent is $ofilecurrent \n";
+#        print "pathcurrent is $pathcurrent \n";
+    }else{
+        $end_flag = 0;
+	    $text.=$_."\n";
+    }
+    if($end_flag > 0){
+        select OFILE;
+        print $text;
+        close OFILE;
+        select STDOUT;
+#print "-"x10,"\n"."Spliting,output file to --> $ofilecurrent\n";
+        $end_flag=0;
+        undef $text;
+    }
+}
+close VFILE;
+
+
+##	if(/(^\s*module)(\s+(\w+)\s*)/i){#\u5339\u914d\u5230always		
+##        $ofilenext=$2;
+##        $_=$ofilenext;
+##	    $ofilenext=~ s/\(//;
+##        $_=$ofilenext;
+##	    $ofilenext=~ s/\s+$//g;
+##        $_=$ofilenext;
+##	    $ofilenext=~ s/^\s+//g;
+##        $ofilenext=$ofilenext.".v";
+##        print "$ofilenext\n";
+##        open(OFILE,">",$ofilenext) || die "open file failed!\n";
+##        $end_flag=0;
+##    }
+##	elsif(/\b(endmodule)\b/i){
+##        $end_flag=1;
+##    }
+##	if($end_flag>0){
+##        select OFILE;
+##        print $text;
+##        close OFILE;
+##        select STDOUT;
+##        print "-"x10,"\n"."Spliting,output file to --> $ofilenext\n";
+##        $end_flag=0;
+##        undef $text;
+##    }
+##}
+##close VFILE;

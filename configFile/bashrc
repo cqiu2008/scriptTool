@@ -1,0 +1,194 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+source /usr/share/autojump/autojump.bash
+. /usr/share/autojump/autojump.sh
+################################################################
+# Program :
+#	This program is used to register the licenses and paths 
+# History:
+#	2017/08/08	QiuChao First Release
+################################################################
+#### ==== Licenses and PATH register Begin
+#### Export SoftWare Home
+##export QUESTA_HOME=/opt/tool/mentor/questasim10_2b/questasim
+export QUESTA_HOME=/opt/tool/mentor/questasim10_4c/questasim
+export NOVAS_HOME=/opt/tool/novas/verdi3_201403
+export VCS_HOME=/opt/tool/synopsys/vcs_mx_vl201606
+export VCS_ARCH_OVERRIDE=linux
+##export VIVADO_HOME=/opt/Xilinx/Vivado_HLS/2016.2
+#export VIVADO_HOME=/opt/tool/xilinx/vivado16_02/Vivado/2016.2
+#export VIVADO_HLS_HOME=/opt/tool/xilinx/vivado16_02/Vivado_HLS/2016.2
+export VIVADO_HOME=/opt/tool/xilinx/vivado2018_03/Vivado/2018.3
+export VIVADO_HLS_HOME=/opt/tool/xilinx/vivado2018_03/Vivado/2018.3
+
+export SCRIPT_HOME=/home/cqiu/sourceTool/scriptTool
+export LICENSE_HOME=/home/cqiu/sourceTool/all_license_file_lenovo
+export SCL_HOME=/opt/tool/synopsys/scl11_9
+#export SDX_HOME=/opt/tool/xilinx/sdx2017_01/SDx/2017.1
+#export XILINX_UBOOT_HOME=/home/cqiu/code/xilinx/uboot
+export VSCODE_HOME=/home/cqiu/.local/share/umake/web/visual-studio-code
+#export JAVA_HOME=/opt/tool/java/jdk1.8.0_112
+#export JRE_HOME=${JAVA_HOME}/jre
+#export JAVA_BIN=${JAVA_HOME}/bin
+#export CLASSPATH=.:${JAVA_HOME}/lib/dt.jar:${JAVA_HOME}/lib/tools.jar:${JRE_HOME}/lib
+#export PYTHONPATH=/usr/local:$PYTHONPATH
+#export PYTHONPATH=$PYTHONPATH:/home/cqiu/eclipse_workspace/caffe2/build
+#export COCOAPI=/home/cqiu/eclipse_workspace/cocoapi
+#export DETECTRON=/home/cqiu/eclipse_workspace/detectron
+##vscode cmd -- code
+#### Export LICENSE FILE 
+export MSIM_LICFILE=simLenvolicense1C-39-47-28-CD-36.dat
+export VERDI_LICFILE=synopsysLenovo1c394728cd36.dat
+#export VIVADO_LICFILE=vivadohls.lic
+#### Export PATH 
+export PATH=$PATH:/usr/sbin:/sbin:/usr/local/bin:\
+${QUESTA_HOME}/linux_x86_64:\
+${NOVAS_HOME}/bin:\
+${NOVAS_HOME}/platform/LINUX/bin:\
+${VCS_HOME}/gui/dve/bin:\
+${VCS_HOME}/bin:\
+${VIVADO_HOME}/bin:\
+${VIVADO_HLS_HOME}/bin:\
+${VSCODE_HOME}:\
+${SCRIPT_HOME}
+
+#echo $PYTHONPATH
+#echo $LD_LIBRARY_PATH
+# export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+#### Export LD_LIBRARY_PATH using by vsim and verdi 
+export LD_LIBRARY_PATH=${NOVAS_HOME}/share/PLI/MODELSIM/LINUXAMD64
+export LD_LIBRARY_PATH=/usr/local/lib:libpli:${LD_LIBRARY_PATH}
+#### Export LM_LICENSE_FILE 
+export LM_LICENSE_FILE=${LICENSE_HOME}/questasim_license/${MSIM_LICFILE}:${LICENSE_HOME}/novas_license/${VERDI_LICFILE}
+                    
+#${LICENSE_HOME}/xilinx_license/${VIVADO_LICFILE}
+#### Alias  
+alias verdi3_201403_lmgrd="${SCL_HOME}/linux/bin/lmgrd -c ${LICENSE_HOME}/novas_license/${VERDI_LICFILE} -l ${LICENSE_HOME}/novas_license/synopsys.log"
+#### Others
+export XILINX_VIVADO=${VIVADO_HOME}/
+export SWT_GTK3=0
+#### sogou shuru 
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+#### Abandonment 
+#alias verdi3_201210_lmgrd='/opt/tool/novas/verdi3_201210/bin/lmgrd -C /home/logic/source_tool/all_license_file_11/novas_license/verdi3_benz_license.dat'
+#export LD_LIBRARY_PATH=${NOVAS_HOME}/share/PLI/MODELSIM/LINUX64
+##export LD_LIBRARY_PATH=/usr/local/microsemi/Libero_v11.7/Libero/bin:${LD_LIBRARY_PATH}
+## ==== Licenses and PATH register End 
+################################################################

@@ -1,0 +1,39 @@
+#!/usr/bin/perl -w
+
+print "Tar -zcpf the folder to the new date name folder \n";
+##print "input keyword \n"; 
+
+##====(1) define
+my $folder_name;
+my $new_folder_name;
+##====(2) delete the first input character when it including the "/" or "." and so on.
+$_=$ARGV[0];
+##s/\/\s*$//g; ## delete the "/" when the character including the "/"
+s/\W+\s*$//g; ## delete the "/" when the character including the "/" or "." and so on.
+$folder_name = $_;
+s/\d+\_\d+\s*$//g;
+print "the folder_name:: $folder_name\n";
+##====(3) initial new_folder_name
+$new_folder_name= $_;
+##====(4) capture the date time of now 
+$_= `date +%Y%m%d_%H%M`;####20161027_1402 
+##====(5) delete the first "20",it should be "161027_1402" format
+s/^20//g;
+##====(6) delete the "/" when the character including the "/" or "." and so on.
+s/\W+\s*$//g; ## delete the "/" when the character including the "/" or "." and so on.
+##====(7) update the $new_folder_name  
+$new_folder_name= $new_folder_name.$_.".tar.gz";
+##====(5) copy the folder to the new name folder 
+system("tar -zcpf $new_folder_name $folder_name ");
+
+print "tar -zcpf $new_folder_name $folder_name\n";
+
+
+#system("date +%Y%m%d_%H%M");
+
+
+##$_=$ARGV[1];
+
+#print "send file in server done \n";
+
+

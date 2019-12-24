@@ -1,0 +1,53 @@
+#!/usr/bin/perl -w
+
+print "sending file in the server \n";
+print "input keyword \n"; 
+
+##====(1) define
+my $key_name;
+
+##====(2) delete the first input character when it including the "/" or "." and so on.
+$_=$ARGV[0];
+##s/\/\s*$//g; ## delete the "/" when the character including the "/"
+s/\W+\s*$//g; ## delete the "/" when the character including the "/" or "." and so on.
+$key_name = $_;
+
+$_=$ARGV[1];
+
+
+$file_path_name = "$_"; 
+$file_path_name_tmp = "./rtl.f_tmp";
+
+
+## Create the
+if (! open RTL_FILE, "<",$file_path_name)
+{
+	die "Cann't open the $file_path_name:$!";
+}
+
+if (! open RTL_FILE_TMP, ">>",$file_path_name_tmp)
+{
+	die "Cann't open the $file_path_name_tmp:$!";
+}
+
+
+## deal one line by one line
+foreach ( <RTL_FILE> )
+{
+	if( $_ =~ /$key_name/)
+	{
+		print "This file [$file_path_name] has the key word = $key_name\n";
+		print RTL_FILE_TMP "$_";		
+	}
+	#else
+	#{
+	#	print "No ipcore file \n";
+	#	print RTL_FILE_TMP "$_";		
+	#}
+}
+close RTL_FILE;
+close RTL_FILE_TMP;
+
+#print "send file in server done \n";
+
+

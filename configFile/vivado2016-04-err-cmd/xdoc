@@ -1,0 +1,4 @@
+#!/bin/bash
+
+setsid /opt/Xilinx/DocNav/docnav &
+

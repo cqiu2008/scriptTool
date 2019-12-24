@@ -1,0 +1,34 @@
+#!/usr/bin/perl -w
+
+print "Copy the folder to the new date name\n";
+##print "input keyword \n"; 
+
+##====(1) define
+my $folder_name;
+my $new_folder_name;
+my $date_name;
+
+##====(2) delete the first input character when it including the "/" or "." and so on.
+$_=$ARGV[0];
+##s/\/\s*$//g; ## delete the "/" when the character including the "/"
+s/\W+\s*$//g; ## delete the "/" when the character including the "/" or "." and so on.
+$folder_name = $_;
+s/\d+\_\d+\s*$//g;
+##====(3) capture the date time of now 
+$date_name = `date +%Y%m%d_%H%M`;####20161027_1402 
+##====(4) load the name of content 
+$new_folder_name = $_.$date_name;
+##====(5) copy the folder to the new name folder 
+system("cp -rf $folder_name $new_folder_name");
+
+print "Finished copying the new folder :: $new_folder_name\n";
+
+
+#system("date +%Y%m%d_%H%M");
+
+
+##$_=$ARGV[1];
+
+#print "send file in server done \n";
+
+

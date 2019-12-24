@@ -1,0 +1,3 @@
+sudo fdisk -l
+/dev/sdb
+sudo mount /dev/sdb /home/sdb

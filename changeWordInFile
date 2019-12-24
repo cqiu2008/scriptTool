@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+keyOld=aab
+keyNew=ccd
+pathName=tmp.txt
+sed -i "s/$keyOld/$keyNew/g" ./${pathName}

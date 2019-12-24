@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /opt/Xilinx/Vivado_HLS/2016.4/bin
+setsid ./vivado_hls &
+

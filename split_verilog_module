@@ -1,0 +1,61 @@
+#!/usr/bin/perl -w
+use 5.010;
+use File::Basename;
+use utf8;
+binmode(STDOUT,":encoding(gbk)");
+print "Beginning to process ... \n";
+print "CMD Format---split_module in.v---- \n";
+my $filename;
+my $outfilename;
+
+#-----delete the first input character when it including the "/" or "." and so on.
+$_=$ARGV[0];
+##s/\/\s*$//g; ## delete the "/" when the character including the "/"
+s/\W+\s*$//g; ## delete the "/" when the character including the "/" or "." and so on
+$filename = $_;
+#$outfilename=$filename."format";
+print "$filename \n"; 
+#print "$outfilename \n"; 
+my $basename = basename($filename,".v");
+
+#----------------------------------------------------------
+#\u6d4b\u8bd5\u6587\u4ef6\u5b58\u5728
+#die "\u6587\u4ef6$filename\u4e0d\u5b58\u5728\uff01\n" unless -e $filename;
+die "file $filename is not exist! \n" unless -e $filename;
+#\u6253\u5f00\u6587\u4ef6
+open(VFILE,"<",$filename) || die "open file failed!\n";
+#open(OFILE,">",$outfilename) || die "open file failed!\n";
+#----------------------------------------------------------
+#\u5bf9\u6587\u4ef6\u9884\u5904\u7406,begin...end if...else if...begin\u7b49\u5728\u4e00\u884c\u7684\u6539\u6210\u4e24\u884c
+my $end_flag   = 0;
+while(<VFILE>){
+	chomp;#\u53bb\u9664\u884c\u5c3e\u7684\n
+#push @content,$_;
+	$text.=$_."\n";
+	if(/(^\s*module)(\s+(\w+)\s*)/i){#\u5339\u914d\u5230always		
+        $outfilename=$2;
+        $_=$outfilename;
+	    $outfilename=~ s/\(//;
+        $_=$outfilename;
+	    $outfilename=~ s/\s+$//g;
+        $_=$outfilename;
+	    $outfilename=~ s/^\s+//g;
+        $outfilename=$outfilename.".v";
+        print "$outfilename\n";
+        open(OFILE,">",$outfilename) || die "open file failed!\n";
+        $end_flag=0;
+    }
+	elsif(/\b(endmodule)\b/i){
+        $end_flag=1;
+    }
+	if($end_flag>0){
+        select OFILE;
+        print $text;
+        close OFILE;
+        select STDOUT;
+        print "-"x10,"\n"."Spliting,output file to --> $outfilename\n";
+        $end_flag=0;
+        undef $text;
+    }
+}
+close VFILE;

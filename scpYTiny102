@@ -1,0 +1,1 @@
+sshpass -p robot scp -r /home/exbot/sdk_workspace/yTiny102sdk/Debug/yTiny102sdk.elf hrt@192.168.0.211:/home/hrt/yolo 

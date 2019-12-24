@@ -1,0 +1,191 @@
+#If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
+################################################################
+# Program :
+#	This program is used to register the licenses and paths 
+# History:
+#	2017/08/08	QiuChao First Release
+################################################################
+#### ==== Licenses and PATH register Begin
+#### Export SoftWare Home
+##export QUESTA_HOME=/opt/tool/mentor/questasim10_2b/questasim
+export QUESTA_HOME=/opt/tool/mentor/questasim10_4c/questasim
+#export NOVAS_HOME=/opt/tool/novas/verdi3_201403
+export NOVAS_HOME=/opt/tool/synopsys/verdi_vL_2016_06_1
+export VCS_HOME=/opt/tool/synopsys/vcs_mx_vl201606
+export VCS_ARCH_OVERRIDE=linux
+##export VIVADO_HOME=/opt/Xilinx/Vivado_HLS/2016.2
+#export VIVADO_HOME=/opt/tool/xilinx/vivado16_02/Vivado/2016.2
+#export VIVADO_HLS_HOME=/opt/tool/xilinx/vivado16_02/Vivado_HLS/2016.2
+export VIVADO_HOME=/opt/tool/xilinx/vivado2018_03/Vivado/2018.3
+export VIVADO_HLS_HOME=/opt/tool/xilinx/vivado2018_03/Vivado/2018.3
+
+export SCRIPT_HOME=/home/cqiu/sourceTool/scriptTool
+export LICENSE_HOME=/home/cqiu/sourceTool/all_license_file_lenovo
+export SCL_HOME=/opt/tool/synopsys/scl11_9
+#export SDX_HOME=/opt/tool/xilinx/sdx2017_01/SDx/2017.1
+#export XILINX_UBOOT_HOME=/home/cqiu/code/xilinx/uboot
+export VSCODE_HOME=/home/cqiu/.local/share/umake/web/visual-studio-code
+#export JAVA_HOME=/opt/tool/java/jdk1.8.0_112
+#export JRE_HOME=${JAVA_HOME}/jre
+#export JAVA_BIN=${JAVA_HOME}/bin
+#export CLASSPATH=.:${JAVA_HOME}/lib/dt.jar:${JAVA_HOME}/lib/tools.jar:${JRE_HOME}/lib
+#export PYTHONPATH=/usr/local:$PYTHONPATH
+#export PYTHONPATH=$PYTHONPATH:/home/cqiu/eclipse_workspace/caffe2/build
+#export COCOAPI=/home/cqiu/eclipse_workspace/cocoapi
+#export DETECTRON=/home/cqiu/eclipse_workspace/detectron
+##vscode cmd -- code
+#### Export LICENSE FILE 
+export MSIM_LICFILE=simLenvolicense1C-39-47-28-CD-36.dat
+export VERDI_LICFILE=synopsysLenovo1c394728cd36.dat
+export VCS_LICFILE=synopsysLenovo1c394728cd36.dat
+#export VIVADO_LICFILE=vivadohls.lic
+#### Export PATH 
+export PATH=$PATH:/usr/sbin:/sbin:/usr/local/bin:\
+${QUESTA_HOME}/linux_x86_64:\
+${NOVAS_HOME}/bin:\
+${NOVAS_HOME}/platform/LINUX/bin:\
+${VCS_HOME}/gui/dve/bin:\
+${VCS_HOME}/bin:\
+${VIVADO_HOME}/bin:\
+${VIVADO_HLS_HOME}/bin:\
+${VSCODE_HOME}:\
+${SCL_HOME}/amd64/bin:\
+${SCRIPT_HOME}
+
+#echo $PYTHONPATH
+#echo $LD_LIBRARY_PATH
+# export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+#### Export LD_LIBRARY_PATH using by vsim and verdi 
+export LD_LIBRARY_PATH=${NOVAS_HOME}/share/PLI/MODELSIM/LINUXAMD64
+export LD_LIBRARY_PATH=/usr/local/lib:libpli:${LD_LIBRARY_PATH}
+#### Export LM_LICENSE_FILE 
+#export LM_LICENSE_FILE=${LICENSE_HOME}/questasim_license/${MSIM_LICFILE}:${LICENSE_HOME}/novas_license/${VERDI_LICFILE}
+export LM_LICENSE_FILE=27000@cqiuE40
+                    
+#${LICENSE_HOME}/xilinx_license/${VIVADO_LICFILE}
+#### Alias  
+alias lmg_vcs="${SCL_HOME}/amd64/bin/lmgrd -c ${LICENSE_HOME}/novas_license/${VCS_LICFILE} -l ${LICENSE_HOME}/novas_license/synopsys_vcs.log"
+echo "The 1st time you shoulde lmg_vcs after reboot the compute"
+alias g="gvim"
+#alias verdi3_201403_lmgrd="${SCL_HOME}/linux/bin/lmgrd -c ${LICENSE_HOME}/novas_license/${VERDI_LICFILE} -l ${LICENSE_HOME}/novas_license/synopsys.log"
+#### Others
+export XILINX_VIVADO=${VIVADO_HOME}/
+export SWT_GTK3=0
+#### sogou shuru 
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+#### Abandonment 
+#alias verdi3_201210_lmgrd='/opt/tool/novas/verdi3_201210/bin/lmgrd -C /home/logic/source_tool/all_license_file_11/novas_license/verdi3_benz_license.dat'
+#export LD_LIBRARY_PATH=${NOVAS_HOME}/share/PLI/MODELSIM/LINUX64
+##export LD_LIBRARY_PATH=/usr/local/microsemi/Libero_v11.7/Libero/bin:${LD_LIBRARY_PATH}
+## ==== Licenses and PATH register End 
+################################################################
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="awesomepanda"
+##ZSH_THEME="simple"
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+alias zshconfig="mate ~/.zshrc"
+alias ohmyzsh="mate ~/.oh-my-zsh"
+#/usr/share/autojump/autojump.sh
+[[ -s /home/cqiu/.autojump/etc/profile.d/autojump.sh ]] && source /home/cqiu/.autojump/etc/profile.d/autojump.sh
+##autoload -U compinit && compinit -u
+alias js="autojump --stat"
+alias jp="autojump --purge" 
+alias dve="dve -full64"
+#source /opt/ros/kinetic/setup.bash
+#source /opt/ros/kinetic/setup.zsh
+#source  catkin_ws/devel/setup.zsh
+#export CM=/home/cqiu/qt_workspace/qt-caffe/qt-caffe-ristretto-cm/cnnData/Layer
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+

@@ -1,0 +1,19 @@
+#!/bin/bash
+# Program:
+#			Save the zshrc , bashrc gvim and so on
+# History:
+# 2018/12/01	Qiu Chao First release
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+CONFIG_PATH=~/sourceTool/scriptTool
+if [[ ! -d $CONFIG_PATH ]]; then 
+	echo "Error the $CONFIG_PATH does not exist "
+else
+	if [[ ! -d $CONFIG_PATH/configFile ]]; then 
+		mkdir $CONFIG_PATH/configFile 
+	fi
+	cp -rf ~/.zshrc  $CONFIG_PATH/configFile/zshrc
+	cp -rf ~/.bashrc $CONFIG_PATH/configFile/bashrc
+	cp -rf ~/.gvimrc $CONFIG_PATH/configFile/gvimrc
+fi
+echo "Finished save the $CONFIG_PATH/configFile " 

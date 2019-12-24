@@ -1,0 +1,9 @@
+export filePath1=/home/cqiu/eclipse_workspace/caffe-master-ristretto-common/cnnData-Int9/Blob
+export filePath2=/home/cqiu/eclipse_workspace/caffe-master-ristretto-common/cnnData/Blob
+#fileName=conv1.dat
+#fileName=pool1.dat
+#fileName=res2a_branch2b.dat
+fileName=res2a_branch2c.dat
+#fileName=res2a_branch1.dat
+python subFileTxtMain.py $filePath1/$fileName $filePath2/$fileName 1 
+
