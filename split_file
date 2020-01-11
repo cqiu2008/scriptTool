@@ -30,9 +30,18 @@ while(<VFILE>){
 #push @content,$_;
     if(/qcTag1234/i){#\u5339\u914d\u5230always		
         my @fields = split / /,$_;
+        #print "pre1 is $_ \n";
         my @whole_paths = split /\//,$fields[0];
+        #get the last array element
+        $_ = $whole_paths[$#whole_paths];
+        #for example change "tmp.v" to "tmp\.v"
+        s/\./\\\./g;
+        my $tmp_name = $_;
+        #print "tmp_name= $tmp_name \n";
+        #print "wholePath is @whole_paths \n";
         $_ = $fields[0];
-        s/$whole_paths[$#whole_paths]//g;
+        s/$tmp_name//g;
+        #print "pre3 is $_ \n";
         if($begin_flag > 0){
             $begin_flag = 0;
             $end_flag = 0;
@@ -40,12 +49,14 @@ while(<VFILE>){
             $pathnext = $_;
             $ofilecurrent = $ofilenext;
             $pathcurrent = $pathnext; 
+            #print "1st time pathcurrent is $pathcurrent \n";
             system("mkdir -p $pathcurrent");
             system("touch $ofilecurrent");
             open(OFILE,">",$ofilecurrent) || die "open file failed!\n";
         }else{
             $ofilecurrent = $ofilenext;
             $pathcurrent = $pathnext; 
+            #print __LINE__,"::2nd to ... time pathcurrent is $pathcurrent \n";
             system("mkdir -p $pathcurrent");
             system("touch $ofilecurrent");
             open(OFILE,">",$ofilecurrent) || die "open file failed!\n";

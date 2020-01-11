@@ -1,0 +1,17 @@
+#*****************************************************************************
+# This is the makefile to collect some commands. 
+#
+# Author: Qiu Chao 
+# Date  : 2019/12/25
+#
+#*****************************************************************************
+SHELL=/bin/bash
+########Define the export PATH  
+export BASE_ROOT
+BASE_ROOT		= $(shell cd ./;pwd)
+
+####Display the help commond 
+.PHONY:default
+default:
+	@echo -e "\033[40;32m *****************************************************************************  \033[0m"
+	@echo -e "\033[40;32m Makefile Template************************************************************  \033[0m"
