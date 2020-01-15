@@ -1,0 +1,22 @@
+#!/bin/bash
+# Program:
+#   filter some strings in the txt file 
+# History:
+# 2019/11/19	Qiu Chao First release
+
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH
+
+echo -e "\033[40;32m Function:Create many empty files as ordered by number----------------------\033[0m" 
+echo -e "\033[40;31m Attention:The most number is 100000----------------------------------------\033[0m"
+read -p "Please input your number of begin creating files: " begin_num
+read -p "Please input your number of end creating files: " end_num
+for (( i=${begin_num};i<${end_num};i=i+1))
+do
+  postfix=$(echo ${i} | awk '{printf("%05d\n",$0)}')
+  touch ts${postfix}
+  echo -e "\033[40;32m the created file is ts${postfix} -----------------------------\033[0m" 
+done
+
+
+echo -e "\033[40;32m Finished it. -----------------------------\033[0m" 
