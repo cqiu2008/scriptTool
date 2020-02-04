@@ -1,0 +1,69 @@
+#!/usr/bin/perl -w
+#
+#---------------------
+#hex2rcfbin
+#--------------------
+#
+#Input file format
+#bootcode file
+#0040ffe0 
+#000032c1
+#....
+#....
+
+#Output file format
+#00000000010000001111111111100000
+#00000000000000000011010000100001
+#00000000000000000011010010001001
+#00000000000000000011010010001011
+#....
+#....
+#
+
+sub hex2bin($$)
+{
+  my $input_hex_file=shift;
+  my $output_bin_file=shift;
+
+  if(-e $output_bin_file)
+  {
+    system"rm -f $output_bin_file";
+  }
+
+open(FILE_HEX, "$input_hex_file") or die("Could not open file:$input_hex_file.\n");
+open(FILE_BIN, ">$output_bin_file") or die("Could not open file:$output_bin_file\n");
+
+  while(<FILE_HEX>)
+ {  chomp;
+        #print "line=$_ \n";
+    @evy_line = split(//,$_);
+        #print "evy line=$_ \n";
+    foreach $evy_word (@evy_line)
+   {
+        #print "word=$evy_word \n";
+        $new_bin=&one_hex2bin($evy_word);
+        print FILE_BIN "$new_bin";
+        #print "word=$new_bin \n";
+   }
+        print FILE_BIN "\n";
+        #print "\n";
+ }
+
+ print "---------------------------------------------------\n";
+ print "file= $output_bin_file is generated\n";
+ print "---------------------------------------------------\n";
+
+}
+
+sub one_hex2bin($)
+{
+        my $h = shift;
+        my $hlen = length($h);
+        my $blen = $hlen * 4;
+        return unpack("B$blen", pack("H$hlen", $h));
+}
+
+my $hex_file = $ARGV[0];
+my $bin_file = $ARGV[1];
+
+hex2bin($hex_file,$bin_file);
