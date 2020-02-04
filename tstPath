@@ -1,0 +1,16 @@
+#!/bin/bash
+# Program:
+#   filter some strings in the txt file 
+# History:
+# 2019/11/19	Qiu Chao First release
+
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH
+TSTA=ccd
+#TSTA=abcd:$TSTA
+TSTA=$TSTA:abcd
+
+echo -e "\033[40;32m Function:Test TSTA=${TSTA}----------------------\033[0m" 
+echo -e "\033[40;32m Function:Test Path=$PATH ----------------------\033[0m" 
+
+echo -e "\033[40;32m Finished it. -----------------------------\033[0m" 

@@ -1,0 +1,70 @@
+#!/usr/bin/env perl
+#################################################################################
+#
+# The confidential and proprietary information contained in this file may
+# only be used by a person authorised under and to the extent permitted
+# by a subsisting licensing agreement from Jeejio Limited.
+#
+#                 (C) COPYRIGHT 2018-2019 JEEJIO Limited.
+#                       ALL RIGHTS RESERVED
+#
+# This entire notice must be reproduced on all copies of this file
+# and copies of this file may only be made by a person if such person is
+# permitted to do so under the terms of a subsisting license agreement
+# from JEEJIO Limited.
+#
+#	       tarback
+#	       ============
+#
+#
+################################################################################
+
+if ($#ARGV != 0) {
+  print "\nUsage:  tarback xxx \n\n";
+  die();
+}
+
+#-----delete the first input character when it including the "/" or "." and so on.
+$_=$ARGV[0];
+s/\W+\s*$//g; ## delete the "/" when the character including the "/" or "." and so o
+$inFileName = $_;
+$tarGzName=$inFileName.".tar.gz";
+$hexName=$inFileName.".hex";
+$mainFoler="tt".$inFileName;
+
+#----------------------------------------------------------
+#Test the file exist or not. 
+die "file $inFileName is not exist! \n" unless -e $inFileName;
+
+################################################################################
+# content begin
+################################################################################
+#Step1 tar the folder or file
+system("tar -zcpf $tarGzName $inFileName");
+#Step2 transform xxx.tar.gz to xxx.hex
+system("bin2hex $tarGzName > $hexName");
+#Step3 insert dummy code from 13 line to 17 line for security 
+system("cpnew $hexName");
+system("sed '13 i 1322 aac8 6723 9824 9823 ff43 a887 ca29' -i $hexName");
+system("sed '14 i 8914 2655 29aa cc8e 2677 e1d1 a933 8ca4' -i $hexName");
+system("sed '15 i 9724 1555 3498 a933 f433 dd23 dd34 3def' -i $hexName");
+system("sed '16 i a8b3 2616 29aa 44c8 5790 8734 e533 cafe' -i $hexName");
+system("sed '17 i 7753 92a6 17c8 abc4 30cc 5783 a9ee cabb' -i $hexName");
+#Step4 split xxx.hex to many hex file as 64k
+if( -e $mainFoler){
+  system("rm -rf $mainFoler");
+}
+system("mkdir $mainFoler");
+system("mkdir $mainFoler/main");
+system("split -l 1600 $hexName -d -a 4 $mainFoler/main/t");
+#system("split -C 64k $hexName -d -a 4 $mainFoler/main/t");
+#how to sort size  
+#du -sh * | sort -nr
+system("mv $tarGzName $mainFoler");
+system("mv $hexName   $mainFoler");
+################################################################################
+# content end 
+################################################################################
+#
+print "tar backup successfully!\n";
+
