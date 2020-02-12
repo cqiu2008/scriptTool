@@ -1,0 +1,18 @@
+#!/bin/bash
+# Program:
+#			Save the zshrc , bashrc gvim and so on
+# History:
+# 2018/12/01	Qiu Chao First release
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+
+echo "How to change git login from https to ssh"
+echo "git config --global user.name  "cqiu2008@hotmail.com""
+echo "git config --global user.email "cqiu2008@hotmail.com""
+echo "git config -l"
+echo "git remote -v"
+echo "git remote rm origin"
+echo "git remote add origin git@github.com:cqiu2008/xxx.git"
+echo "git remote -v\n" 
+echo "git push --set-upstream origin master"
+
