@@ -1,0 +1,24 @@
+#!/bin/bash
+# Program:
+#   filter some strings in the txt file 
+# History:
+# 2019/11/19	Qiu Chao First release
+
+export SCRIPT_HOME=/home/cqiu/work/tool/stool/linux/scriptTool
+export DS_LMGRD_HOME=/opt/tool/arm/ds5v14build1702/sw/FLEXnet_11.10.1.0/redhat-enterprise-64bit
+export LICENSE_HOME=/home/cqiu/work/tool/stool/linux/all_license_file_lenovo
+export SCL_HOME=/opt/tool/synopsys/scl11_9
+export VCS_LICFILE=synopsysJeejio0019B9E0642C.dat
+
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:${SCRIPT_HOME}:$PATH
+export PATH
+##Step1 change mac
+echo -e "faccbb11" | sudo -S /sbin/ifconfig eth0 down
+echo -e "faccbb11" | sudo -S /sbin/ifconfig eth0 hw ether 00:19:B9:E0:64:2C
+echo -e "faccbb11" | sudo -S /sbin/ifconfig eth0 up 
+##Step2 lmgrd license 
+${SCL_HOME}/amd64/bin/lmgrd -c ${LICENSE_HOME}/novas_license/${VCS_LICFILE} -l ${LICENSE_HOME}/novas_license/synopsys_vcs.log
+${DS_LMGRD_HOME}/lmgrd -C ${LICENSE_HOME}/arm_license/armDs5License.dat -l ${LICENSE_HOME}/arm_license/armDs5License.log 
+
+echo -e "\033[40;32m Finished it. --------------\033[0m" 
+

@@ -1,1 +1,1 @@
-sudo modprobe -r psmouse
+echo -e "faccbb11" | sudo -S modprobe -r psmouse

@@ -1,0 +1,81 @@
+#!/usr/bin/env perl
+#################################################################################
+#
+# The confidential and proprietary information contained in this file may
+# only be used by a person authorised under and to the extent permitted
+# by a subsisting licensing agreement from Jeejio Limited.
+#
+#                 (C) COPYRIGHT 2018-2019 JEEJIO Limited.
+#                       ALL RIGHTS RESERVED
+#
+# This entire notice must be reproduced on all copies of this file
+# and copies of this file may only be made by a person if such person is
+# permitted to do so under the terms of a subsisting license agreement
+# from JEEJIO Limited.
+#
+#	       powerAnalyze 
+#	       ============
+#
+#
+################################################################################
+
+if ($#ARGV != 0) {
+  print "\nUsage:  plPowerAnalyze xxx.log \n\n";
+  die();
+}
+
+$_=$ARGV[0];
+##s/\/\s*$//g; ## delete the "/" when the character including the "/"
+s/\W+\s*$//g; ## delete the "/" when the character including the "/" or "." and so o
+$inFileName = $_;
+$outFileName=$inFileName.".out";
+print "$inFileName \n"; 
+print "$outFileName \n"; 
+
+#----------------------------------------------------------
+#Test the file exist or not. 
+die "file $inFileName is not exist! \n" unless -e $inFileName;
+#Open it.
+open(IFILE,"<",$inFileName)  || die "open file $inFileName failed!\n" ;
+open(OFILE,">",$outFileName) || die "open file $outFileName failed!\n";
+
+
+
+################################################################################
+# content begin
+################################################################################
+my $writeEnable = 0;
+#my $autoIndentSpace = " " x 8;#auto space numbers
+#my $autoIndentSpace = " " x 6;#auto space numbers
+my $autoIndentSpace = " " x 4;#auto space numbers
+my $spaceNum = $autoIndentSpace;
+my $keyWord="U_CRU";
+while(<IFILE>){
+  chomp;#delete the \n in every line
+  if(/^$spaceNum\S/i){
+    #print "$spaceNum matched  ";
+    if(/$keyWord/i){
+      $writeEnable = 1;
+    }
+    else{
+      $writeEnable = 0;
+    }
+  }
+  if($writeEnable){
+    #print "writeEnalbe is running "; 
+    print OFILE "$_\n";
+    #if(/0.0$/i){
+    #}else{
+    #  print OFILE "$_\n";
+    #}
+  }
+  #print "writeEnalbe is $writeEnable\n";
+}
+
+################################################################################
+# content end 
+################################################################################
+close(IFILE);
+close(OFILE);
+
+print "power Analyze successfully!\n";

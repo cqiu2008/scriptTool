@@ -1,0 +1,92 @@
+#!/bin/bash
+# Program:
+#		 convert xxx.elf to load_header_sbl.memh	
+# History:
+# 2019/11/19	Qiu Chao First release
+
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH
+
+echo -e "\033[40;32m Function:fsbl To load_header_sbl.memh--------------------------------------\033[0m" 
+echo -e "\033[40;31m Attention:fsbl must be smaller than 51.2 KBytes----------------------------\033[0m"
+echo -e "\033[40;32m If largger than 51.2 KBytes, you must modify the code in the sbl2head file-\033[0m"
+read -p "Please input your fsbl file: " input 
+read -p "Please input your base addr: " baseAddr
+
+#Function
+dec2hex() {
+  printf "%x" $1
+}
+
+# assign 
+inputHex="${input}"".hex"
+result="result"
+fixLine=128
+
+echo "\nYour fsbl file name is : ${input}"
+echo "\nYour input Hex file name is : ${inputHex}"
+
+# convert input.elf to input.hex
+hexdump -v -e '"%08x\n"' ${input} > ./${inputHex}
+
+# get the total line of the ${inputHex} file
+totalLine=$(cat ${inputHex} | wc -l)
+echo "totoal lines = ${totalLine}"
+
+# calculate the ceil blocks of the inputHex file
+realBlocks=$(echo "scale=5;${totalLine}/${fixLine}"|bc)
+remBlocks=$(echo "scale=0;${totalLine}%${fixLine}"|bc)
+if [ ${remBlocks} -eq "0" ]; then
+  ceilBlocks=$(echo ${realBlocks} |awk '{print int($0)+0}')
+else
+  ceilBlocks=$(echo ${realBlocks} |awk '{print int($0)+1}')
+fi
+echo "realBlocks= ${realBlocks}"
+echo "remBlocks= ${remBlocks}"
+echo "ceilBlocks= ${ceilBlocks}"
+
+# delete the result file if it is exist.
+if [ -e ${result} ]; then
+  rm -rf ${result}
+fi
+touch ${result}
+
+for (( i=0; i<${ceilBlocks}; i=i+1 ))
+do
+  echo "${i}"
+  # assign variance 
+  if [ "${i}" -lt "10" ]; then
+    inputHexD="tmpLog0""${i}"
+  else
+    inputHexD="tmpLog""${i}"
+  fi
+  inputHexDR="${inputHexD}""r"
+  inputHexDRN="${inputHexD}""rn"
+  # split the file as 128 lines with one file 
+  split -l ${fixLine} ${inputHex} -d -a 2 tmpLog
+  # # reverse the line content
+  sed '1!G;h;$!d' ${inputHexD} > ${inputHexDR} 
+  # delete the line break to space,change many lines to one line 
+  cat ${inputHexDR} | xargs > ${inputHexDRN}
+  # delete the space in every line 
+  sed -i 's/[[:space:]]//g' ${inputHexDRN} 
+  # add address to file
+  addrDec=`expr ${i} + ${baseAddr}`
+  addrHex=$(dec2hex ${addrDec})
+  if [ "${addrDec}" -lt "16" ]; then
+    sed -i "s/^/\@${addrHex}  /g" ${inputHexDRN}
+  else
+    sed -i "s/^/\@${addrHex} /g" ${inputHexDRN}
+  fi
+  # cat the file to result file
+  cat ${inputHexDRN} ${result} >> ${result} 
+  # un assign variance 
+  unset inputHexD
+  unset inputHexDR
+  unset inputHexDRN
+done
+
+rm -rf tmpLog*
+
+echo -e "\033[40;32m Finished it. The result file is ${result} ---------------------------------\033[0m" 
+

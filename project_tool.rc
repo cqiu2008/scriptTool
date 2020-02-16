@@ -1,0 +1,204 @@
+echo "sourcing projcshrc for jc3 project"
+
+export VCS_LIC_EXPIRE_WARNING=0 
+
+##============================
+## initial common path set
+##============================
+export PATH=.:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+export LD_LIBRARY_PATH=/lib
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/lib
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/include
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/X11R6/lib
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/X11R6/lib64
+
+##============================
+## Project environments
+##============================
+export ProjRoot=${HOME}/projects
+export ProjID=jc3
+export WORKDIR=${ProjRoot}/${ProjID}
+export ProjRTL=${WORKDIR}/design
+export ProjBench=${WORKDIR}/vrf
+export ProjFPGA=${WORKDIR}/fpga
+export ProjIMPL=${WORKDIR}/impl
+export ProjMODELS=${ProjBench}/bfm
+export ProjTcases=${ProjBench}/sv/tc
+export ProjSim=${ProjBench}/sv/sim
+export ProjUTILS=${WORKDIR}/utils
+
+#Change Directory aliases
+alias work='cd ${WORKDIR}'
+alias design='cd ${DESIGN}'
+alias rtl='cd ${ProjRTL}'
+alias impl='cd ${ProjIMPL}'
+alias bench='cd ${ProjBench}'
+alias exe='cd ${WORKDIR}/exe'
+alias sim='cd ${ProjBench}/sv/sim'
+alias tcases='cd ${ProjBench}/sv/tcases'
+
+#---------------------Mem Compiler START----------------------------
+export PATH=/export/library/foundary/SMIC40LL/memory_compiler/sram_sp_hde_rvt_rvt/r1p2/bin:$PATH
+export PATH=/export/library/foundary/SMIC40LL/memory_compiler/sram_dp_hde_rvt_rvt/r1p1/bin:$PATH
+export PATH=/export/library/foundary/SMIC40LL/memory_compiler/rom_via_hdd_rvt_rvt/r1p1/bin:$PATH
+export PATH=/export/library/foundary/SMIC40LL/memory_compiler/rf_2p_hde_rvt_rvt/r1p1/bin:$PATH
+export PATH=/export/library/foundary/SMIC40LL/memory_compiler/rf_sp_hdf_rvt_rvt/r1p1/bin:$PATH
+export PATH=/export/library/foundary/SMIC40LL/memory_compiler/memExplorer/r0p0/bin:$PATH
+#---------------------Mem Compiler END----------------------------
+
+#scriptTool for qc
+export SCRIPT_HOME=/export/home2/qc/work/tool/stool/linux/scriptTool
+export PATH=${SCRIPT_HOME}:$PATH
+
+# compiler
+export PATH=$PATH:/edatools/arm/gcc-arm-none-eabi-8-2018-q4-major/bin
+export PATH=${ProjSim}/script/tools:$PATH
+
+#bcompare
+export PATH=$PATH:/edatools/bcompare/bin
+#foxit
+#export PATH=$PATH:/edatools/foxitreader
+
+#synplify
+export PATH=$PATH:/edatools/synopsys/SYNPLIFY_201803/bin
+
+#RISC-V
+#export PATH=$PATH:/edatools/riscv/rocket-chip/riscv-tools/riscv/bin
+#export PATH=$PATH:/edatools/riscv/riscv-tools/riscv/bin
+
+#VCS
+#export VCS_HOME=/edatools/synopsys/vcs-mx_vK-2015.09-SP2
+export VCS_HOME=/edatools/synopsys/vcs-mx_vO-2018.09-SP2/vcs-mx/O-2018.09-SP2/
+export VCS_PLATFORM=amd64
+export PATH=$PATH:${VCS_HOME}/bin
+
+#PT
+#export PT_HOME=/edatools/synopsys/PT-I-2013.12-SP3
+#export PT_HOME=/edatools/synopsys/PT-J-2014.06-SP3
+export PT_HOME=/edatools/synopsys/PT-K-2015.06
+export PT_PLATFORM=amd64
+export PATH=$PATH:${PT_HOME}/bin
+
+#DC2016	
+#export LC_HOME=/edatools/synopsys/lib_compiler_vM-2016.12/lc/M-2016.12
+#export PATH=$PATH:${LC_HOME}/bin
+#export DC_HOME=/edatools/synopsys/SYN-I-2013.12-SP4
+#export DC_HOME=/edatools/synopsys/SYN-K-2015.06
+export DC_HOME=/edatools/synopsys/syn_vM-2016.12-SP2
+#export DC_HOME=/edatools/synopsys/SYN_vN-2017.09-SP5/syn/N-2017.09-SP5
+export DC_PLATFORM=amd64
+export PATH=$PATH:${DC_HOME}/bin
+
+#ICC
+#export PATH=$PATH:/edatools/synopsys/icc_vI-2013.12/bin
+export PATH=$PATH:/edatools/synopsys/icc_vK-2015.06-SP5/bin
+#export PATH=$PATH:/edatools/synopsys/icc2_vM-2016.12/icc2/M-2016.12/bin
+#export PATH=$PATH:/edatools/synopsys/icc2_vN-2017.09-SP5/bin
+
+#STARRC
+#export PATH=$PATH:/edatools/synopsys/starrc_vD-2010.06-SP3/bin
+#export PATH=$PATH:/edatools/synopsys/starrc_vH-2013.06-SP1/bin
+#export PATH=$PATH:/edatools/synopsys/starrc_vJ-2014.06-SP3/bin
+#export PATH=$PATH:/edatools/synopsys/starrc_vK-2015.06/bin
+export PATH=$PATH:/edatools/synopsys/starrc_vM-2016.12-SP2/bin
+#export PATH=$PATH:/edatools/synopsys/starrc_vM-2017.06-SP3/bin
+
+#calibre
+#export CALIBRE_HOME=/edatools/mentor/ixl_cal_2014.4_28.20
+#export CALIBRE_HOME=/edatools/mentor/ixl_cal_2015.2_27.20
+export CALIBRE_HOME=/edatools/mentor/ixl_cal_2016.1_23.16
+export LANG=C
+export CALIBRE_2013_4_ALLOW_IXL_ON_RHEL6=101010
+export PATH=$CALIBRE_HOME/bin:$PATH
+export MGC_LIB_PATH=$CALIBRE_HOME/lib
+export MGC_CALIBRE_REALTIME_VIRTUOSO_ENABLED=1
+export OA_PLUGIN_PATH=$CALIBRE_HOME/shared/pkgs/icv/tools/queryskl
+export LD_LIBRARY_PATH=$CALIBRE_HOMEE/shared/pkgs/icv/tools/calibre_client/lib/64:${LD_LIBRARY_PATH}
+export MGC_CALIBRE_SAVE_ALL_RUNSET_VALUES=1
+
+#REDHAWK
+export APACHEROOT=/edatools/apache/RedHawk_Linux64_V11.1.2
+export PATH=$PATH:$APACHEROOT/bin
+
+#fm2016	
+#export FM_HOME=/edatools/synopsys/FM-I-2013.12-SP4
+#export FM_HOME=/edatools/synopsys/fm_vK-2015.06-SP5
+#export FM_HOME=/edatools/synopsys/fm_vL-2016.03-SP5
+export FM_HOME=/edatools/synopsys/fm_vN-2017.09-SP1/fm/N-2017.09-SP1
+export FM_PLATFORM=amd64
+export PATH=$PATH:${FM_HOME}/bin
+
+#Verdi
+#export NOVAS_HOME=/edatools/synopsys/verdi/vJ-2014.12-SP2
+#export NOVAS_HOME=/edatools/synopsys/verdi/Verdi3_L-2016.06-1
+export NOVAS_HOME=/edatools/synopsys/verdi_vO-2018.09-SP2/verdi/Verdi_O-2018.09-SP2/
+export VERDI_HOME=$NOVAS_HOME
+export PATH=$PATH:$NOVAS_HOME/bin
+export LD_LIBRARY_PATH=$NOVAS_HOME/share/PLI/VCS/LINUX64:$LD_LIBRARY_PATH
+
+#vera
+export VERA_HOME=/edatools/synopsys/vera_vD-2009.12-17/vera_vD-2009.12-17_amd64
+#export VERA_HOME=/edatools/synopsys/VERA-D-2009.12-15/vera_vD-2009.12-15_amd64
+export PATH=$PATH:$VERA_HOME/bin
+
+#coreTools
+##export PATH=$PATH:/edatools/synopsys/coretools_vL-2016.09/bin
+##export PATH=$PATH:/edatools/synopsys/coretools_vO-2018.09-SP2/bin
+##export CORE_TOOL_PATH=/edatools/synopsys/coreTools_vO-2018.09-SP4/coretools/O-2018.09-SP4
+export CORE_TOOL_PATH=/edatools/synopsys/coretools_vO-2018.09-SP2
+export PATH=$PATH:$CORE_TOOL_PATH/bin
+##export DESIGNWARE_HOME=/edatools/synopsys/coretools_vL-2016.09
+##export DESIGNWARE_HOME=/edatools/synopsys/coretools_vo-2018.09-SP2
+export DESIGNWARE_HOME=$CORE_TOOL_PATH
+export SYNOPSYS=/edatools/synopsys/SYN-I-2013.12-SP4
+#export PATH=$PATH:/edatools/synopsys/coretools/K-2015.06-SP5/bin
+
+#spyglass
+export SPYGLASS_HOME=/edatools/synopsys/SpyGlass-L2016.06/SPYGLASS_HOME
+export PATH=$PATH:$SPYGLASS_HOME/bin
+export SPYGLASS_DC_PATH=$DC_HOME
+
+#vivado 
+#export PATH=$PATH:/edatools/xilinx/vivado2016.4/Vivado/2016.4/bin
+export PATH=$PATH:/edatools/xilinx/2018.3/Vivado/2018.3/bin
+
+# Mentor env:
+export MGC_HOME=/edatools/mentor/dft_2009_1_10
+export PATH=$PATH:$MGC_HOME/bin
+
+alias dfta='dftadvisor &'
+alias fast='fastscan &'
+alias flex='flextest &'
+alias bsda='bsdarchitect &'
+alias bsdg='bsdgen &'
+
+#nLint
+export PATH=$PATH:/edatools/synopsys/nLint/nLint-2015.09-SP1_linux/bin
+
+#arm memory_explorer
+export PATH=$PATH:/export/library/foundary/SMIC40LL/memory_compiler/memExplorer/r0p0/bin
+export PATH=$PATH:/edatools/tools/bcompare/bin
+
+#arm jtag .so
+export LD_LIBRARY_PATH=${ProjBench}/bfm/arm_jtag/armBST/ModelManager/Linux_64/MM/synopsys_vcs_verilog:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=${ProjBench}/bfm/arm_jtag/armBST/RH_Linux_x86_64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=${ProjBench}/bfm/arm_jtag/swjim:$LD_LIBRARY_PATH
+
+# others
+export LS_COLORS='no=01:fi=00:di=01;35:ln=04;36:pi=40;33:so=01;31:bd=40;36:cd=40;33:or=40;31:ex=00;32:*.tar=00;33:*.tgz=00;33:*.zip=00;33:*.bz2=00;33:*.z=00;33:*.Z=00;33:*.gz=00;33:'
+
+alias dc='dc_shell-t'
+alias corec='coreConsultant'
+alias fm='formality'
+alias pt='pt_shell'
+alias s='source ~/.bashrc'
+alias g='gvim'
+alias ls='ls -F --color=always'
+alias dir='dir --color=always'
+alias la='ls -a'
+alias ll='ls -l -a'
+echo "sourcing license"
+source /edatools/lic.bashrc
+echo "Done! source projcshrc for jc3 project"

@@ -5,7 +5,7 @@
 # 2018/12/01	Qiu Chao First release
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
-CONFIG_PATH=~/sourceTool/scriptTool
+CONFIG_PATH=~/work/tool/stool/linux/scriptTool
 if [[ ! -d $CONFIG_PATH ]]; then 
 	echo "Error the $CONFIG_PATH does not exist "
 else
@@ -14,6 +14,6 @@ else
 	fi
 	cp -rf ~/.zshrc  $CONFIG_PATH/configFile/zshrc
 	cp -rf ~/.bashrc $CONFIG_PATH/configFile/bashrc
-	cp -rf ~/.gvimrc $CONFIG_PATH/configFile/gvimrc
+	cp -rf ~/.vimrc $CONFIG_PATH/configFile/vimrc
 fi
 echo "Finished save the $CONFIG_PATH/configFile " 

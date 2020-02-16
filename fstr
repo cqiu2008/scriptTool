@@ -1,0 +1,27 @@
+#!/bin/bash
+# Program:
+#   filter some strings in the txt file 
+# History:
+# 2019/11/19	Qiu Chao First release
+
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH
+
+echo -e "\033[40;32m Function:fstr full name is filter string in the file ----------------------\033[0m" 
+echo -e "\033[40;31m Attention:fstr only filter one type  string -------------------------------\033[0m"
+echo -e "\033[40;31m Attention:fstr output file is xxx-filter-----------------------------------\033[0m"
+read -p "Please input your org file: " inputFile 
+read -p "Please input your filter string: " filterString 
+
+#Function
+dec2hex() {
+  printf "%x" $1
+}
+
+# assign 
+outputFile="${inputFile}""-filter"
+
+sed "/${filterString}/"d ${inputFile} > ${outputFile}
+
+echo -e "\033[40;32m Finished it. The result file is ${outputFile} -----------------------------\033[0m" 
+

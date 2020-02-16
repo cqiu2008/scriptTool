@@ -1,3 +1,3 @@
-/sbin/ifconfig eth0 down
-/sbin/ifconfig eth0 hw ether 00:19:B9:E0:64:2C
-/sbin/ifconfig eth0 up 
+echo -e "faccbb11" | sudo -S /sbin/ifconfig eth0 down
+echo -e "faccbb11" | sudo -S /sbin/ifconfig eth0 hw ether 00:19:B9:E0:64:2C
+echo -e "faccbb11" | sudo -S /sbin/ifconfig eth0 up 

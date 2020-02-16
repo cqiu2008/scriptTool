@@ -1,0 +1,15 @@
+#!/bin/bash
+# Program:
+#			Save the zshrc , bashrc gvim and so on
+# History:
+# 2018/12/01	Qiu Chao First release
+
+echo "/edatools/synopsys/iip/DW_apb_ssi/4.02a"
+echo "/edatools/tools/bcompare/bin/bcompare"
+
+echo "Crack bcompare tools"
+echo "S1: rm -rf ~/.config/bcompare"
+echo "S2: Enter the license txt with openinig the /edatools/tools/bcompare/lic.dat"
+echo "GXN1eh9FbDiX1ACdd7XKMV7hL7x0ClBJLUJ-zFfKofjaj2yxE53xauIfkqZ8FoLpcZ0Ux6McTyNmODDSvSIHLYhg1QkTxjCeSCk6ARz0ABJcnUmd3dZYJNWFyJun14rmGByRnVPL49QH+Rs0kjRGKCB-cb8IT4Gf0Ue9WMQ1A6t31MO9jmjoYUeoUmbeAQSofvuK8GN1rLRv7WXfUJ0uyvYlGLqzq1ZoJAJDyo0Kdr4ThF-IXcv2cxVyWVW1SaMq8GFosDEGThnY7C-SgNXW30jqAOgiRjKKRX9RuNeDMFqgP2cuf0NMvyMrMScnM1ZyiAaJJtzbxqN5hZOMClUTE+++"
+echo "S3: Finished"
+
